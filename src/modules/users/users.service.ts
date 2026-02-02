@@ -10,19 +10,18 @@ export class UsersService {
   @InjectModel(User.name) private userModel: Model<UserDocument>;
 
   async create(createUserDto: CreateUserDto) {
-    const newUser = await this.userModel.create({
-      name: createUserDto.name,
-      email: createUserDto.email,
-      password: createUserDto.password,
-      age: +createUserDto.age,
-      gender: createUserDto.gender,
-      address: createUserDto.address,
-    });
-
-    return {
-      _id: newUser._id,
-      createdAt: newUser.createdAt,
-    };
+    // const newUser = await this.userModel.create({
+    //   name: createUserDto.name,
+    //   email: createUserDto.email,
+    //   password: createUserDto.password,
+    //   age: +createUserDto.age,
+    //   gender: createUserDto.gender,
+    //   address: createUserDto.address,
+    // });
+    // return {
+    //   _id: newUser._id,
+    //   createdAt: newUser.createdAt,
+    // };
   }
 
   findAll() {
@@ -51,7 +50,7 @@ export class UsersService {
     return await this.userModel.findByIdAndUpdate(
       id,
       { isDeleted: true, deletedAt: new Date() },
-      { new: true } // Trả về bản ghi sau khi đã cập nhật
+      { new: true }, // Trả về bản ghi sau khi đã cập nhật
     );
   }
 }

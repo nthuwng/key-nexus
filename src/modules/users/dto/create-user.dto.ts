@@ -1,68 +1,47 @@
-import { Type } from 'class-transformer';
-import {
-  IsEmail,
-  IsMongoId,
-  IsNotEmpty,
-  IsNotEmptyObject,
-  IsObject,
-  IsString,
-  ValidateNested,
-} from 'class-validator';
-
+import { IsEmail, IsNotEmpty, IsString } from 'class-validator';
 import mongoose from 'mongoose';
 
 export class CreateUserDto {
-  @IsNotEmpty({ message: 'Name không được để trống' })
-  name: string;
+  @IsNotEmpty()
+  fullName: string;
 
-  @IsEmail({}, { message: 'Email không đúng định dạng' })
-  @IsNotEmpty({ message: 'Email không được để trống' })
+  @IsEmail()
   email: string;
 
-  @IsNotEmpty({ message: 'Password không được để trống' })
+  @IsNotEmpty()
   password: string;
 
-  @IsNotEmpty({ message: 'Age không được để trống' })
-  age: string;
-
-  @IsNotEmpty({ message: 'Gender không được để trống' })
+  @IsString()
   gender: string;
 
-  @IsNotEmpty({ message: 'Address không được để trống' })
-  address: string;
+  @IsString()
+  phone?: string;
 
-  //   @IsNotEmpty({ message: 'Role không được để trống' })
-  //   @IsMongoId({ message: 'Role phải là một MongoId hợp lệ' })
-  //   role: mongoose.Schema.Types.ObjectId;
-
+  @IsNotEmpty({ message: 'permissions không được để trống' })
+  roleId?: mongoose.Schema.Types.ObjectId[];
 }
 
 export class RegisterUserDto {
-  @IsNotEmpty({ message: 'Name không được để trống' })
-  name: string;
+  @IsNotEmpty({ message: 'Họ tên không được để trống' })
+  fullName: string;
 
-  @IsEmail({}, { message: 'Email không đúng định dạng' })
-  @IsNotEmpty({ message: 'Email không được để trống' })
+  @IsEmail({}, { message: 'Email không hợp lệ' })
   email: string;
 
-  @IsNotEmpty({ message: 'Password không được để trống' })
+  @IsNotEmpty({ message: 'Mật khẩu không được để trống' })
   password: string;
 
-  @IsNotEmpty({ message: 'Age không được để trống' })
-  age: number;
-
-  @IsNotEmpty({ message: 'Gender không được để trống' })
+  @IsString()
   gender: string;
 
-  @IsNotEmpty({ message: 'Address không được để trống' })
-  address: string;
+  @IsString()
+  phone?: string;
 }
 
-export class UserLoginDto {
-  @IsString()
+export class LoginDto {
+  @IsEmail({}, { message: 'Email không hợp lệ' })
+  email: string;
+
   @IsNotEmpty()
-  readonly username: string;
-  @IsString()
-  @IsNotEmpty()
-  readonly password: string;
+  password: string;
 }
