@@ -2,6 +2,7 @@ export enum PermissionModule {
   USERS = 'users',
   ROLES = 'roles',
   PERMISSIONS = 'permissions',
+  MAIL = 'mail',
 }
 
 export enum PermissionAction {
@@ -11,4 +12,6 @@ export enum PermissionAction {
   DELETE = 'delete',
   VIEW = 'view',
   DETAIL = 'detail',
+  CHANGE_STATUS = 'change_status',
+  SEND_EMAIL = 'send_email',
 }

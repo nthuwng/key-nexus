@@ -2,10 +2,6 @@ import {
   Controller,
   Get,
   Post,
-  Body,
-  Patch,
-  Param,
-  Delete,
   UseGuards,
   Req,
   Res,
@@ -14,7 +10,6 @@ import { AuthService } from './auth.service';
 import { LocalAuthGuard } from '../../common/guards/local-auth.guard';
 import type { Response, Request } from 'express';
 import {
-  Permissions,
   Public,
   ResponseMessage,
   User,

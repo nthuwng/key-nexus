@@ -7,6 +7,7 @@ import mongoose, { Model } from 'mongoose';
 import bcrypt from 'bcryptjs';
 import aqp from 'api-query-params';
 import { Role, RoleDocument } from '../roles/schemas/role.schema';
+import { IUser } from './users.interface';
 
 @Injectable()
 export class UsersService {
@@ -81,6 +82,28 @@ export class UsersService {
 
   update(id: number, updateUserDto: UpdateUserDto) {
     return `This action updates a #${id} user`;
+  }
+
+  async updateStatusUser(id: string, user: IUser, status: string) {
+    if (status !== 'ACTIVE' && status !== 'LOCKED') {
+      throw new BadRequestException(
+        'Chỉ chấp nhận trạng thái ACTIVE hoặc LOCKED',
+      );
+    }
+
+    const isExistUser = await this.userModel.findOne({ _id: id });
+
+    if (!isExistUser) {
+      throw new BadRequestException('Người dùng không tồn tại');
+    }
+    return await this.userModel.updateOne(
+      { _id: id },
+      {
+        status,
+        updatedBy: { _id: user._id, email: user.email },
+        updatedAt: new Date(),
+      },
+    );
   }
 
   async remove(id: string) {

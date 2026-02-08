@@ -6,7 +6,6 @@ import ms, { StringValue } from 'ms';
 import { ConfigService } from '@nestjs/config';
 import { Response } from 'express';
 import bcrypt from 'node_modules/bcryptjs';
-import { RolesService } from '../roles/roles.service';
 
 @Injectable()
 export class AuthService {
@@ -45,11 +44,9 @@ export class AuthService {
 
     const refresh_token = this.createRefreshToken(payload);
 
-    // //update refresh token in db
     const refreshTokenHash = await bcrypt.hash(refresh_token, 10);
     await this.usersService.updateUserToken(refreshTokenHash, _id);
 
-    // //set cookie
     response.cookie('refresh_token', refresh_token, {
       httpOnly: true,
       maxAge: ms(

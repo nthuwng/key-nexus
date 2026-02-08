@@ -55,6 +55,17 @@ export class UsersController {
     return this.usersService.update(+id, updateUserDto);
   }
 
+  @Patch(':id/status')
+  @ResponseMessage(`Cập nhật trạng thái người dùng thành công`)
+  @Permissions(`${PermissionModule.USERS}.${PermissionAction.CHANGE_STATUS}`)
+  updateStatusUser(
+    @Param('id') id: string,
+    @User() user: any,
+    @Body('status') status: string,
+  ) {
+    return this.usersService.updateStatusUser(id, user, status);
+  }
+
   @Delete(':id')
   @Permissions(`${PermissionModule.USERS}.${PermissionAction.DELETE}`)
   remove(@Param('id') id: string) {
