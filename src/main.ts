@@ -29,6 +29,14 @@ async function bootstrap() {
   //set cookie parser
   app.use(cookieParser());
 
+   // config CORS
+  app.enableCors({
+    origin: 'http://localhost:3000',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    credentials: true,
+  });
+
   // config versioning
   app.setGlobalPrefix('api');
   app.enableVersioning({
