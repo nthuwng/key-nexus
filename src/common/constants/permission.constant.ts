@@ -3,6 +3,8 @@ export enum PermissionModule {
   ROLES = 'roles',
   PERMISSIONS = 'permissions',
   MAIL = 'mail',
+  CATEGORIES = 'categories',
+  PRODUCTS = 'products',
 }
 
 export enum PermissionAction {

@@ -31,26 +31,26 @@ export class User {
   refreshTokenHash?: string;
 
   @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Role.name })
-  roleId: Role | mongoose.Schema.Types.ObjectId  ;
+  roleId: Role | mongoose.Schema.Types.ObjectId;
 
   @Prop({ default: false })
   isDeleted: boolean;
 
   @Prop({ type: Object })
   createdBy: {
-    _id: mongoose.Schema.Types.ObjectId;
+        _id: mongoose.Schema.Types.ObjectId | string;
     email: string;
   };
 
   @Prop({ type: Object })
   updatedBy: {
-    _id: mongoose.Schema.Types.ObjectId;
+        _id: mongoose.Schema.Types.ObjectId | string;
     email: string;
   };
 
   @Prop({ type: Object })
   deletedBy: {
-    _id: mongoose.Schema.Types.ObjectId;
+        _id: mongoose.Schema.Types.ObjectId | string;
     email: string;
   };
 

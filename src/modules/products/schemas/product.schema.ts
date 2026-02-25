@@ -1,21 +1,28 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
+import { Category } from 'src/modules/category/schemas/category.schema';
 
-export type PermissionDocument = HydratedDocument<Permission>;
+export type ProductDocument = HydratedDocument<Product>;
 
 @Schema({ timestamps: true })
-export class Permission {
+export class Product {
   @Prop()
-  key: string;
+  name: string;
 
   @Prop()
-  method: string;
+  price: number;
 
   @Prop()
-  module: string;
+  quantity: number;
 
   @Prop()
-  description: string;
+  image: string;
+
+  @Prop()
+  brand: string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Category.name })
+  categoryId: Category | mongoose.Schema.Types.ObjectId | string;
 
   @Prop({ default: false })
   isDeleted: boolean;
@@ -48,4 +55,4 @@ export class Permission {
   deletedAt: Date;
 }
 
-export const PermissionSchema = SchemaFactory.createForClass(Permission);
+export const ProductSchema = SchemaFactory.createForClass(Product);

@@ -10,6 +10,8 @@ import { PermissionsModule } from './modules/permissions/permissions.module';
 import { AuthModule } from './modules/auth/auth.module';
 import { DatabasesModule } from './modules/databases/databases.module';
 import { MailModule } from './modules/mail/mail.module';
+import { ProductsModule } from './modules/products/products.module';
+import { CategoryModule } from './modules/category/category.module';
 
 @Module({
   imports: [
@@ -33,6 +35,8 @@ import { MailModule } from './modules/mail/mail.module';
     AuthModule,
     DatabasesModule,
     MailModule,
+    ProductsModule,
+    CategoryModule,
   ],
   controllers: [AppController],
   providers: [AppService],
