@@ -23,12 +23,11 @@ export class AuthService {
         const objUser = {
           ...user.toObject(),
         };
-
         return objUser;
       }
     }
 
-    return user;
+    return null;
   }
 
   async login(user: IUser, response: Response) {
