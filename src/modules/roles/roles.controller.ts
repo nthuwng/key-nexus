@@ -11,11 +11,12 @@ import {
 import { RolesService } from './roles.service';
 import { CreateRoleDto } from './dto/create-role.dto';
 import { UpdateRoleDto } from './dto/update-role.dto';
-import { Permissions, ResponseMessage } from 'src/decorator/customize';
+import { Permissions, ResponseMessage, User } from 'src/decorator/customize';
 import {
   PermissionAction,
   PermissionModule,
 } from 'src/common/constants/permission.constant';
+import type { IUser } from '../users/users.interface';
 
 @Controller('roles')
 export class RolesController {
@@ -36,7 +37,7 @@ export class RolesController {
     @Query('pageSize') limit: string,
     @Query() qs: string,
   ) {
-    return this.rolesService.findAll( currentPage, limit, qs);
+    return this.rolesService.findAll(currentPage, limit, qs);
   }
 
   @Get(':id')
@@ -50,7 +51,9 @@ export class RolesController {
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.rolesService.remove(+id);
+  @ResponseMessage('Xóa danh mục thành công')
+  @Permissions(`${PermissionModule.CATEGORIES}.${PermissionAction.DELETE}`)
+  remove(@Param('id') id: string, @User() user: IUser) {
+    return this.rolesService.remove(id, user);
   }
 }

@@ -5,6 +5,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import { Role, RoleDocument } from './schemas/role.schema';
 import mongoose, { Model } from 'mongoose';
 import aqp from 'api-query-params';
+import { IUser } from '../users/users.interface';
 
 @Injectable()
 export class RolesService {
@@ -22,7 +23,7 @@ export class RolesService {
   }
 
   async findAll(currentPage: string, limit: string, qs: string) {
-    const { filter, sort, population ,projection} = aqp(qs);
+    const { filter, sort, population, projection } = aqp(qs);
     delete filter.current;
     delete filter.pageSize;
 
@@ -67,7 +68,29 @@ export class RolesService {
     return `This action updates a #${id} role`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} role`;
+  async remove(id: string, user: IUser) {
+    if (!mongoose.Types.ObjectId.isValid(id)) {
+      throw new BadRequestException(`ID không hợp lệ`);
+    }
+
+    const role = await this.roleModel.findById(id);
+
+    if (!role) {
+      throw new BadRequestException(`Không tìm thấy vai trò`);
+    }
+
+    if (role.name === 'SUPER_ADMIN') {
+      throw new BadRequestException(`Không thể xóa vai trò SUPER_ADMIN`);
+    }
+
+    if (role.name === 'ADMIN') {
+      throw new BadRequestException(`Không thể xóa vai trò ADMIN`);
+    }
+
+    if (role.name === 'USER') {
+      throw new BadRequestException(`Không thể xóa vai trò USER`);
+    }
+
+    return await this.roleModel.deleteOne({ _id: id });
   }
 }

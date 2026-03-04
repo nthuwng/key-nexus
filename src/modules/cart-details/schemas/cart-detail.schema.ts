@@ -1,37 +1,23 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import mongoose, { HydratedDocument } from 'mongoose';
-import { Role } from 'src/modules/roles/schemas/role.schema';
+import { Cart } from 'src/modules/cart/schemas/cart.schema';
+import { Product } from 'src/modules/products/schemas/product.schema';
 
-export type UserDocument = HydratedDocument<User>;
+export type CartDetailDocument = HydratedDocument<CartDetail>;
 
 @Schema({ timestamps: true })
-export class User {
-  @Prop()
-  fullName: string;
+export class CartDetail {
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Cart.name })
+  cartId: Cart | mongoose.Schema.Types.ObjectId | string;
+
+  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Product.name })
+  productId: Product | mongoose.Schema.Types.ObjectId | string;
 
   @Prop({ required: true })
-  email: string;
+  quantity: number;
 
   @Prop({ required: true })
-  password: string;
-
-  @Prop()
-  gender: string;
-
-  @Prop()
-  phone?: string;
-
-  @Prop({ default: 'ACTIVE' })
-  status: 'ACTIVE' | 'LOCKED';
-
-  @Prop({ default: 0 })
-  tokenVersion: number;
-
-  @Prop({ select: false })
-  refreshTokenHash?: string;
-
-  @Prop({ type: mongoose.Schema.Types.ObjectId, ref: Role.name })
-  roleId: Role | mongoose.Schema.Types.ObjectId;
+  price: number;
 
   @Prop({ default: false })
   isDeleted: boolean;
@@ -64,4 +50,4 @@ export class User {
   deletedAt: Date;
 }
 
-export const UserSchema = SchemaFactory.createForClass(User);
+export const CartDetailSchema = SchemaFactory.createForClass(CartDetail);

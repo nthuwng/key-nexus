@@ -12,6 +12,8 @@ import { DatabasesModule } from './modules/databases/databases.module';
 import { MailModule } from './modules/mail/mail.module';
 import { ProductsModule } from './modules/products/products.module';
 import { CategoryModule } from './modules/category/category.module';
+import { CartModule } from './modules/cart/cart.module';
+import { CartDetailsModule } from './modules/cart-details/cart-details.module';
 
 @Module({
   imports: [
@@ -37,6 +39,8 @@ import { CategoryModule } from './modules/category/category.module';
     MailModule,
     ProductsModule,
     CategoryModule,
+    CartModule,
+    CartDetailsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

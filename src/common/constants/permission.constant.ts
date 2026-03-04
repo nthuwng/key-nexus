@@ -5,6 +5,8 @@ export enum PermissionModule {
   MAIL = 'mail',
   CATEGORIES = 'categories',
   PRODUCTS = 'products',
+  CARTS = 'carts',
+  CART_DETAILS = 'cart_details',
 }
 
 export enum PermissionAction {

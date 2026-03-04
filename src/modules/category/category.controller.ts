@@ -61,7 +61,7 @@ export class CategoryController {
   @Delete(':id')
   @ResponseMessage('Xóa danh mục thành công')
   @Permissions(`${PermissionModule.CATEGORIES}.${PermissionAction.DELETE}`)
-  remove(@Param('id') id: string , @User() user: IUser) {
+  remove(@Param('id') id: string, @User() user: IUser) {
     return this.categoryService.remove(id, user);
   }
 }
